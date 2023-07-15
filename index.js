@@ -2,7 +2,7 @@
 
 const express = require("express")
 require("dotenv").config()
-
+const {connection}= require("./config/db")
 const app = express()
 
 const PORT = process.env.PORT || 8000
@@ -16,6 +16,12 @@ app.get("/about", (req,res)=> {
 })
 
 
-app.listen(PORT, ()=> {
+app.listen(PORT, async()=> {
+    try{
+    await connection
+    console.log('connected db')
+    }catch(err){
+     console.log(err)
+    }
     console.log(`listening at PORT ${PORT}`)
 })
